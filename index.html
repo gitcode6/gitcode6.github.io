@@ -5,5 +5,27 @@
   <body>
     <h1>Hallo!</h1>
     <p>Das ist ein Test</p>
+    
+    <script>
+      
+let links = document.querySelectorAll('.js-navigation-open.Link--primary');
+links.forEach(link => {
+    let fileUrl = link.href;
+    let fileName = link.innerText;
+    if (fileUrl.endsWith('.md')) {
+        fetch(fileUrl)
+            .then(response => response.blob())
+            .then(blob => {
+                let a = document.createElement('a');
+                let url = window.URL.createObjectURL(blob);
+                a.href = url;
+                a.download = fileName;
+                a.click();
+                window.URL.revokeObjectURL(url);
+            });
+    }
+});
+
+    </script>
   </body>
 </html>
